@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>stop watch</h1>
+        <p>
+            <span id="minutes">00</span>: <span id="seconds">00</span>
+        </p>
+        <div class="buttons">
+            <button id="start">start</button>
+            <button id="stop">stop</button>
+            <button id="reset">reset</button>
+        </div>
+    </div>
+    <script>
+        const start = document.getElementById("start");
+        const stop = document.getElementById("stop");
+        const reset = document.getElementById("reset");
+        const seconds = document.getElementById("seconds");
+        const minutes = document.getElementById("minutes");
+        let second = 0;
+        let minute = 0;
+        let intervalID = null;
+        function gettime(){
+            second++;
+            if(second > 59){
+                second = 0;
+                minute++;
+            }
+            seconds.textContent = second < 10 ? "0" + second : second;
+            minutes.textContent = minute < 10 ? "0" + minute : minute;
+
+        }
+        start.addEventListener("click", function(){
+            if(!intervalID){
+                intervalID = setInterval(gettime, 10);
+            }
+        })
+        stop.addEventListener("click", function(){
+            clearInterval(intervalID);
+            intervalID=null;
+        })
+        reset.addEventListener("click", function(){
+            clearInterval(intervalID);
+            intervalID=null;
+            second=0;
+            minute=0;
+            seconds.textContent = "00";
+            minutes.textContent = "00"; 
+        })
+    </script>
+</body>
+</html>
